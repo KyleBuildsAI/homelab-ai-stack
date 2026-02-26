@@ -1,0 +1,151 @@
+###############################################################################
+# LiteLLM Configuration — Unified LLM Router
+#
+# This file maps model aliases to their backends. LiteLLM provides an
+# OpenAI-compatible API that routes requests to the configured backends.
+#
+# Docs: https://docs.litellm.ai/docs/proxy/configs
+###############################################################################
+
+model_list:
+  # -------------------------------------------------------------------------
+  # General-purpose chat models
+  # -------------------------------------------------------------------------
+  - model_name: llama3.1:8b
+    litellm_params:
+      model: ollama/llama3.1:8b
+      api_base: http://ollama:11434
+      stream: true
+      timeout: 300
+
+  - model_name: llama3.1:70b
+    litellm_params:
+      model: ollama/llama3.1:70b
+      api_base: http://ollama:11434
+      stream: true
+      timeout: 600
+
+  - model_name: mistral:7b
+    litellm_params:
+      model: ollama/mistral:7b
+      api_base: http://ollama:11434
+      stream: true
+      timeout: 300
+
+  - model_name: gemma2:9b
+    litellm_params:
+      model: ollama/gemma2:9b
+      api_base: http://ollama:11434
+      stream: true
+      timeout: 300
+
+  # -------------------------------------------------------------------------
+  # Code-specialized models
+  # -------------------------------------------------------------------------
+  - model_name: codellama:13b
+    litellm_params:
+      model: ollama/codellama:13b
+      api_base: http://ollama:11434
+      stream: true
+      timeout: 300
+
+  - model_name: deepseek-coder-v2:16b
+    litellm_params:
+      model: ollama/deepseek-coder-v2:16b
+      api_base: http://ollama:11434
+      stream: true
+      timeout: 300
+
+  - model_name: qwen2.5-coder:7b
+    litellm_params:
+      model: ollama/qwen2.5-coder:7b
+      api_base: http://ollama:11434
+      stream: true
+      timeout: 300
+
+  # -------------------------------------------------------------------------
+  # Embedding models (for RAG pipelines)
+  # -------------------------------------------------------------------------
+  - model_name: nomic-embed-text
+    litellm_params:
+      model: ollama/nomic-embed-text
+      api_base: http://ollama:11434
+
+  - model_name: mxbai-embed-large
+    litellm_params:
+      model: ollama/mxbai-embed-large
+      api_base: http://ollama:11434
+
+  # -------------------------------------------------------------------------
+  # Small / fast models (for classification, extraction, simple tasks)
+  # -------------------------------------------------------------------------
+  - model_name: phi3:mini
+    litellm_params:
+      model: ollama/phi3:mini
+      api_base: http://ollama:11434
+      stream: true
+      timeout: 120
+
+  - model_name: tinyllama:1.1b
+    litellm_params:
+      model: ollama/tinyllama:1.1b
+      api_base: http://ollama:11434
+      stream: true
+      timeout: 60
+
+  # -------------------------------------------------------------------------
+  # OpenAI fallback (optional — uncomment and set OPENAI_API_KEY in .env)
+  # -------------------------------------------------------------------------
+  # - model_name: gpt-4o
+  #   litellm_params:
+  #     model: openai/gpt-4o
+  #     api_key: os.environ/OPENAI_API_KEY
+
+  # - model_name: gpt-4o-mini
+  #   litellm_params:
+  #     model: openai/gpt-4o-mini
+  #     api_key: os.environ/OPENAI_API_KEY
+
+  # -------------------------------------------------------------------------
+  # Anthropic fallback (optional — uncomment and set ANTHROPIC_API_KEY)
+  # -------------------------------------------------------------------------
+  # - model_name: claude-sonnet
+  #   litellm_params:
+  #     model: anthropic/claude-sonnet-4-20250514
+  #     api_key: os.environ/ANTHROPIC_API_KEY
+
+litellm_settings:
+  # Enable caching via Redis
+  cache: true
+  cache_params:
+    type: redis
+    host: redis
+    port: 6379
+
+  # Request timeout defaults
+  request_timeout: 300
+
+  # Logging
+  set_verbose: false
+
+  # Fallback configuration (route to smaller model if primary fails)
+  fallbacks:
+    - model: llama3.1:70b
+      fallback: llama3.1:8b
+    - model: deepseek-coder-v2:16b
+      fallback: qwen2.5-coder:7b
+
+  # Rate limits (per model)
+  default_max_parallel_requests: 4
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+  database_url: os.environ/DATABASE_URL
+
+router_settings:
+  routing_strategy: least-busy
+  num_retries: 2
+  retry_after: 5
+  timeout: 300
+  allowed_fails: 3
+  cooldown_time: 60
