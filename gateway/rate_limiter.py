@@ -1,5 +1,5 @@
 """
-homelab-ai-stack Gateway — Token Bucket Rate Limiter
+homelab-ai-stack Gateway - Token Bucket Rate Limiter
 
 Redis-backed rate limiting with two independent buckets per API key:
   - RPM (requests per minute)
@@ -154,7 +154,7 @@ class RateLimiter:
                 bucket=key,
             )
 
-        # Record this request — use timestamp + random suffix to allow
+        # Record this request - use timestamp + random suffix to allow
         # multiple entries at the same timestamp
         import secrets
         member = f"{now}:{secrets.token_hex(4)}"
@@ -202,7 +202,7 @@ class RateLimiter:
         )
 
         # For the pre-request check, we just verify TPM headroom exists
-        # (cost=0 check — actual tokens are recorded post-response)
+        # (cost=0 check - actual tokens are recorded post-response)
         tpm_key = f"{TPM_PREFIX}{key_id}"
         now = time.time()
         window_start = now - WINDOW_SECONDS
