@@ -1,0 +1,40 @@
+# homelab-ai-stack — Custom Alert Rules for Netdata
+
+# High memory usage (OOM risk when running LLMs)
+alarm: hai_high_memory
+on: system.ram
+lookup: average -5m percentage of used
+units: %
+every: 1m
+warn: $this > 85
+crit: $this > 95
+info: System memory usage is high — LLM inference may cause OOM
+
+# High CPU usage
+alarm: hai_high_cpu
+on: system.cpu
+lookup: average -5m of user
+units: %
+every: 1m
+warn: $this > 90
+crit: $this > 98
+info: CPU usage sustained above 90%
+
+# Docker container down
+alarm: hai_container_down
+on: cgroup_hai-ollama.cpu
+lookup: average -1m of usage_total
+units: %
+every: 30s
+crit: $this == nan
+info: Ollama container appears to be down
+
+# Disk space low (model storage)
+alarm: hai_disk_space
+on: disk_space._
+lookup: average -1m of avail
+units: GiB
+every: 5m
+warn: $this < 20
+crit: $this < 5
+info: Low disk space — may not have room for additional models

@@ -1,5 +1,5 @@
 ###############################################################################
-# LiteLLM Configuration - Unified LLM Router
+# LiteLLM Configuration — Unified LLM Router
 #
 # This file maps model aliases to their backends. LiteLLM provides an
 # OpenAI-compatible API that routes requests to the configured backends.
@@ -94,7 +94,7 @@ model_list:
       timeout: 60
 
   # -------------------------------------------------------------------------
-  # OpenAI fallback (optional - uncomment and set OPENAI_API_KEY in .env)
+  # OpenAI fallback (optional — uncomment and set OPENAI_API_KEY in .env)
   # -------------------------------------------------------------------------
   # - model_name: gpt-4o
   #   litellm_params:
@@ -107,7 +107,7 @@ model_list:
   #     api_key: os.environ/OPENAI_API_KEY
 
   # -------------------------------------------------------------------------
-  # Anthropic fallback (optional - uncomment and set ANTHROPIC_API_KEY)
+  # Anthropic fallback (optional — uncomment and set ANTHROPIC_API_KEY)
   # -------------------------------------------------------------------------
   # - model_name: claude-sonnet
   #   litellm_params:

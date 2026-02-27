@@ -1,5 +1,5 @@
 """
-homelab-ai-stack Gateway - Authentication Module
+homelab-ai-stack Gateway — Authentication Module
 
 Manages API key validation and JWT token generation/verification.
 API keys are stored in Redis with metadata (name, created, rate limits).

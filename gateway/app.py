@@ -1,5 +1,5 @@
 """
-homelab-ai-stack Gateway - FastAPI Application
+homelab-ai-stack Gateway — FastAPI Application
 
 Central authentication, rate-limiting, and usage-tracking proxy that sits
 between clients and LiteLLM.  All API requests flow through this gateway
@@ -56,7 +56,7 @@ logger = logging.getLogger("gateway")
 
 
 # ---------------------------------------------------------------------------
-# Lifespan - startup / shutdown hooks
+# Lifespan — startup / shutdown hooks
 # ---------------------------------------------------------------------------
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
@@ -97,7 +97,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     await app.state.usage_tracker.initialize()
 
     logger.info(
-        "Gateway ready - rate limits: %d RPM / %d TPM",
+        "Gateway ready — rate limits: %d RPM / %d TPM",
         RATE_LIMIT_RPM,
         RATE_LIMIT_TPM,
     )

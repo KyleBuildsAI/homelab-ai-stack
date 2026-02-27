@@ -1,0 +1,10 @@
+.env
+volumes/
+data/
+logs/
+*.db
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+backups/

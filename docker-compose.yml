@@ -1,5 +1,5 @@
 ###############################################################################
-# homelab-ai-stack - Docker Compose
+# homelab-ai-stack — Docker Compose
 # Complete self-hosted AI infrastructure for commodity hardware
 #
 # Usage:
@@ -17,7 +17,7 @@ name: homelab-ai-stack
 
 services:
   # ---------------------------------------------------------------------------
-  # Ollama - Local LLM inference engine
+  # Ollama — Local LLM inference engine
   # ---------------------------------------------------------------------------
   ollama:
     image: ollama/ollama:${OLLAMA_VERSION:-latest}
@@ -50,7 +50,7 @@ services:
           memory: ${OLLAMA_MEMORY_LIMIT:-12G}
 
     # -------------------------------------------------------------------------
-    # NVIDIA GPU Passthrough - Uncomment the block below if you have an
+    # NVIDIA GPU Passthrough — Uncomment the block below if you have an
     # NVIDIA GPU with the nvidia-container-toolkit installed.
     #
     #   Install: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit
@@ -68,7 +68,7 @@ services:
     #         memory: 16G
 
     # -------------------------------------------------------------------------
-    # AMD ROCm GPU Passthrough - Uncomment if you have an AMD GPU with
+    # AMD ROCm GPU Passthrough — Uncomment if you have an AMD GPU with
     # ROCm drivers installed. Requires amdgpu driver + rocm-docker.
     #
     #   Install: https://rocm.docs.amd.com/en/latest/deploy/docker.html
@@ -84,7 +84,7 @@ services:
     #     - HSA_OVERRIDE_GFX_VERSION=10.3.0  # Adjust for your GPU arch
 
   # ---------------------------------------------------------------------------
-  # LiteLLM - Unified LLM API gateway / router
+  # LiteLLM — Unified LLM API gateway / router
   # Provides OpenAI-compatible API across all backends
   # ---------------------------------------------------------------------------
   litellm:
@@ -123,7 +123,7 @@ services:
           memory: 1G
 
   # ---------------------------------------------------------------------------
-  # Open WebUI - Feature-rich chat interface for LLMs
+  # Open WebUI — Feature-rich chat interface for LLMs
   # ---------------------------------------------------------------------------
   open-webui:
     image: ghcr.io/open-webui/open-webui:${OPENWEBUI_VERSION:-main}
@@ -170,7 +170,7 @@ services:
           memory: 2G
 
   # ---------------------------------------------------------------------------
-  # ChromaDB - Vector database for RAG / embeddings
+  # ChromaDB — Vector database for RAG / embeddings
   # ---------------------------------------------------------------------------
   chromadb:
     image: chromadb/chroma:${CHROMADB_VERSION:-latest}
@@ -200,7 +200,7 @@ services:
           memory: 1G
 
   # ---------------------------------------------------------------------------
-  # Redis - Caching, session storage, rate limiting backend
+  # Redis — Caching, session storage, rate limiting backend
   # ---------------------------------------------------------------------------
   redis:
     image: redis:${REDIS_VERSION:-7-alpine}
@@ -232,7 +232,7 @@ services:
           memory: 512M
 
   # ---------------------------------------------------------------------------
-  # Gateway - Custom FastAPI auth/rate-limiting/usage-tracking proxy
+  # Gateway — Custom FastAPI auth/rate-limiting/usage-tracking proxy
   # ---------------------------------------------------------------------------
   gateway:
     build:
@@ -279,7 +279,7 @@ services:
           memory: 512M
 
   # ---------------------------------------------------------------------------
-  # Netdata - Real-time performance monitoring
+  # Netdata — Real-time performance monitoring
   # ---------------------------------------------------------------------------
   netdata:
     image: netdata/netdata:${NETDATA_VERSION:-stable}
@@ -331,7 +331,7 @@ networks:
         - subnet: 172.28.0.0/16
 
 # =============================================================================
-# Volumes - Named volumes for persistent data
+# Volumes — Named volumes for persistent data
 # =============================================================================
 volumes:
   ollama_data:
