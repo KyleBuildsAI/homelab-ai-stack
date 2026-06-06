@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create release archive
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/}"
+          mkdir -p dist
+          git archive --format=zip --prefix=homelab-ai-stack-${VERSION}/ HEAD -o dist/homelab-ai-stack-${VERSION}.zip
+          git archive --format=tar.gz --prefix=homelab-ai-stack-${VERSION}/ HEAD -o dist/homelab-ai-stack-${VERSION}.tar.gz
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            dist/*.zip
+            dist/*.tar.gz
